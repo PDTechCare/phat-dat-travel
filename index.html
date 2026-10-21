@@ -6,381 +6,340 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PHÁT ĐẠT TRAVEL | Điều hành tour</title>
 <style>
-:root{--blue:#0759a8;--navy:#102b49;--bg:#f1f5fb;--line:#dce4ee}
+:root{--blue:#0869c9;--navy:#103b70;--bg:#f2f7fd;--line:#dce7f4;--text:#173354}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#20344c}
-header{background:linear-gradient(120deg,#102c4b,#087bd1);color:white;padding:22px 16px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{border:2px solid #b8dfff;border-radius:15px;padding:10px;font-size:22px;font-weight:900}
-h1{font-size:21px;margin:0 0 5px}
-header p{font-size:11px;letter-spacing:1.4px;margin:0;color:#d8eaff}
-nav{display:flex;gap:7px;overflow-x:auto;padding:12px;background:white;position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
-button,.btn{border:0;border-radius:9px;padding:11px 14px;font-weight:650;cursor:pointer;background:#e7eef8;color:#173b60;white-space:nowrap}
-nav button{font-size:13px}
-nav button.active,.primary{background:var(--blue);color:white}
-main{max-width:1100px;margin:auto;padding:15px}
-.page{display:none}.page.active{display:block}
-.card{background:white;border:1px solid var(--line);border-radius:15px;padding:16px;margin-bottom:14px}
-h2{font-size:19px;margin:0 0 15px;color:var(--navy)}
-h3{font-size:15px;margin:18px 0 10px}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
-.stat{background:white;padding:14px;border:1px solid var(--line);border-radius:13px}
-.stat span{display:block;font-size:12px;color:#64758a;margin-bottom:8px}
-.stat strong{font-size:23px;color:var(--navy)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-label{display:block;font-size:13px;font-weight:650;margin-bottom:6px;color:#42546a}
-input,select,textarea{width:100%;border:1px solid #cbd6e4;border-radius:9px;padding:11px;font-size:15px;background:#fff;color:#20344c;min-width:0}
-textarea{min-height:90px;resize:vertical}
-.field{margin-bottom:12px}
-.full{grid-column:1/-1}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.danger{background:#ffeded;color:#a32222}
-.muted{color:#65758a;font-size:13px}
-.listitem{padding:13px 0;border-bottom:1px solid var(--line)}
-.listitem:last-child{border-bottom:0}
-.listitem strong{display:block;margin-bottom:5px}
-.tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:580px}
-th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{background:#edf4fc}
-.badge{font-size:11px;background:#e4f2ff;color:#0759a8;padding:4px 7px;border-radius:6px}
-.empty{text-align:center;padding:25px;color:#738298}
-hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-@media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}main{padding:22px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:420px){.grid{grid-template-columns:1fr}.full{grid-column:auto}header{padding:18px 12px}main{padding:10px}.card{padding:13px}nav button{padding:10px}}
-@media print{
- body{background:white;color:#111;font-size:12px}
- header,nav,.no-print,.actions,.delete-btn{display:none!important}
- main{max-width:none;padding:0}
- .page{display:none!important}
- #printArea{display:block!important}
- #printArea h2{text-align:center}
- #printArea .card{border:0;padding:0}
- #printArea table{min-width:0;font-size:10px}
- #printArea th,#printArea td{padding:5px;border:1px solid #bbb}
-}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.header{min-height:112px;padding:18px 28px;background:linear-gradient(110deg,#07386c,#0875d3);color:white;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:76px;height:76px;border:3px solid white;border-radius:25px;display:grid;place-items:center;font-size:28px;font-weight:900;flex-shrink:0}
+.brand h1{font-size:27px;margin:0 0 7px;letter-spacing:1px}
+.brand p{margin:0;font-size:12px;letter-spacing:2px}
+.header-note{text-align:right;font-style:italic;font-size:16px}
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:calc(100vh - 175px)}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:18px 12px;display:flex;flex-direction:column;gap:6px}
+.nav{display:block;text-align:left;width:100%;padding:13px 14px;border:0;border-radius:10px;background:white;color:var(--text);font-weight:600}
+.nav.active,.nav:hover{background:linear-gradient(100deg,#0877dc,#1769c6);color:white}
+.nav span{display:inline-block;width:30px}
+.sidequote{margin-top:auto;padding:25px 8px;color:#0873d2;text-align:center;font-style:italic;font-size:17px}
+main{padding:24px;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat,.panel,.welcome{border:1px solid var(--line);border-radius:13px;background:#fff;box-shadow:0 2px 8px #153e6508}
+.stat{padding:20px 17px;min-width:0}
+.stat small{color:#52677e;font-weight:700;font-size:12px}
+.stat strong{display:block;font-size:31px;margin-top:12px}
+.stat:nth-child(1){background:linear-gradient(130deg,#edf7ff,#fff)}
+.stat:nth-child(2){background:linear-gradient(130deg,#edfff5,#fff)}
+.stat:nth-child(3){background:linear-gradient(130deg,#f5f0ff,#fff)}
+.stat:nth-child(4){background:linear-gradient(130deg,#fff5e9,#fff)}
+.welcome{padding:26px;margin-bottom:20px;background:linear-gradient(110deg,#fff,#edf6ff);display:flex;justify-content:space-between;align-items:center;gap:20px;overflow:hidden}
+.welcome h2{margin:0 0 10px;color:#0c4c91;font-size:25px}
+.welcome p{line-height:1.7;color:#46617e}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
+.btn{border:1px solid #c9ddf5;background:#fff;color:#174d88;padding:10px 14px;border-radius:9px;font-weight:650}
+.btn.primary{background:#0875db;color:#fff;border-color:#0875db}
+.btn.danger{background:#fff0f0;color:#b52323;border-color:#f0caca}
+.btn.small{padding:7px 10px;font-size:13px}
+.banner-art{font-size:90px;min-width:120px;text-align:center}
+.panel{padding:20px;margin-bottom:18px;min-width:0}
+.panel h3{margin:0 0 17px;font-size:19px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.section-title h2{font-size:24px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+label{font-size:14px;font-weight:700;color:#445c76}
+input,select,textarea{width:100%;min-width:0;border:1px solid #cfdae8;border-radius:8px;padding:11px 12px;background:#fff;color:#173354}
+textarea{min-height:85px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #8bc5ff;border-color:#1680e9}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e6edf5;vertical-align:top;font-size:14px}
+th{background:#f3f8fe;color:#31577e;white-space:nowrap}
+.empty{text-align:center;padding:35px;color:#71869c}
+.hidden{display:none!important}
+.badge{display:inline-block;border-radius:20px;padding:5px 9px;background:#e9f5ff;color:#075ab2;font-size:12px;font-weight:700}
+.photo-preview{display:flex;gap:10px;flex-wrap:wrap}
+.photo-preview img{width:115px;height:75px;object-fit:cover;border:1px solid var(--line);border-radius:7px}
+.footer{background:#103d70;color:white;padding:20px 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+.note{padding:13px 15px;border-radius:9px;background:#fff8df;border:1px solid #f0df9e;color:#795b18;font-size:13px;line-height:1.6;margin-bottom:18px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#123e6e;color:white;padding:12px 18px;border-radius:10px;display:none;z-index:10;max-width:90%;text-align:center}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.sidequote{display:none}main{padding:14px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.header-note{display:none}.banner-art{display:none}}
+@media(max-width:480px){.brand h1{font-size:20px}.brand p{font-size:9px;letter-spacing:1px}.logo{width:56px;height:56px;border-radius:18px}.header{padding:14px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.welcome{padding:18px}.welcome h2{font-size:21px}.stat{padding:14px}.stat strong{font-size:26px}.section-title h2{font-size:21px}}
+@media print{.header,.sidebar,.footer,.no-print,.actions,#toast{display:none!important}.layout{display:block}main{padding:0}.panel,.stat,.welcome{box-shadow:none;break-inside:avoid}.hidden{display:none!important}body{background:white}.table-wrap{overflow:visible}table{min-width:0}th,td{font-size:11px;padding:6px}.print-heading{display:block!important}}
 </style>
 </head>
 <body>
-<header>
+<header class="header">
  <div class="brand">
   <div class="logo">PĐ</div>
-  <div><h1>PHÁT ĐẠT TRAVEL</h1>
-  <p>TOUR OPERATIONS · INTERNAL MANAGEMENT</p></div>
+  <div><h1>PHÁT ĐẠT TRAVEL</h1><p>TOUR OPERATIONS · INTERNAL MANAGEMENT</p></div>
  </div>
+ <div class="header-note">Khám phá thế giới<br>cùng Phát Đạt Travel ✈</div>
 </header>
-
-<nav class="no-print">
- <button class="active" data-page="home">Tổng quan</button>
- <button data-page="tours">Chuyến tour</button>
- <button data-page="guests">Khách hàng</button>
- <button data-page="rooms">Danh sách phòng</button>
- <button data-page="vehicles">Danh sách xe</button>
- <button data-page="reports">In ấn</button>
-</nav>
-
-<main>
-<section id="home" class="page active">
- <div class="card">
-  <h2>Trung tâm điều hành tour</h2>
-  <p>Quản lý lịch trình, khách đi tour, khách sạn, phương tiện và chi phí trên một giao diện.</p>
-  <div class="actions">
-   <button class="primary" onclick="newTour()">+ Tạo chuyến tour</button>
-   <button onclick="showPage('reports')">In lịch trình / hóa đơn</button>
+<div class="layout">
+ <aside class="sidebar no-print">
+  <button class="nav active" data-page="home"><span>⌂</span>Tổng quan</button>
+  <button class="nav" data-page="tours"><span>▣</span>Chuyến tour</button>
+  <button class="nav" data-page="guests"><span>♙</span>Khách tham gia</button>
+  <button class="nav" data-page="rooms"><span>▤</span>Khách sạn / phòng</button>
+  <button class="nav" data-page="vehicles"><span>▰</span>Danh sách xe</button>
+  <button class="nav" data-page="restaurants"><span>♨</span>Nhà hàng</button>
+  <button class="nav" data-page="itinerary"><span>▦</span>Lịch trình</button>
+  <button class="nav" data-page="summary"><span>☷</span>Lịch trình tổng</button>
+  <button class="nav" data-page="receipts"><span>▤</span>Hóa đơn / Phiếu thu</button>
+  <button class="nav" data-page="settings"><span>⚙</span>Sao lưu dữ liệu</button>
+  <div class="sidequote">Du lịch không chỉ là đi,<br>mà là trải nghiệm!</div>
+ </aside>
+ <main>
+  <div id="home" class="page">
+   <div class="stats">
+    <div class="stat"><small>TỔNG CHUYẾN TOUR</small><strong id="statTours">0</strong></div>
+    <div class="stat"><small>TỔNG KHÁCH</small><strong id="statGuests">0</strong></div>
+    <div class="stat"><small>TỔNG XE</small><strong id="statVehicles">0</strong></div>
+    <div class="stat"><small>TỔNG TIỀN CỌC (VNĐ)</small><strong id="statDeposits">0</strong></div>
+   </div>
+   <div class="welcome">
+    <div><h2>✈ Điều hành PHÁT ĐẠT TRAVEL</h2>
+     <p>Quản lý chuyến đi, khách tham gia, phòng khách sạn, phương tiện, nhà hàng và lịch trình từng ngày.</p>
+     <div class="actions">
+      <button class="btn primary" onclick="openPage('tours')">＋ Tạo chuyến tour</button>
+      <button class="btn" onclick="openPage('summary')">▦ Xem lịch trình tổng</button>
+      <button class="btn" onclick="printSummary()">▣ In lịch trình tổng</button>
+     </div>
+    </div><div class="banner-art">🚌🌴</div>
+   </div>
+   <div class="note">Lưu ý: dữ liệu bản này được lưu trên trình duyệt và thiết bị hiện tại. Hãy sao lưu định kỳ. Không tải CCCD lên thiết bị công cộng.</div>
+   <div class="panel"><h3>◷ Chuyến tour gần đây</h3><div id="recentTours" class="empty">Chưa có chuyến tour nào. Hãy tạo chuyến tour đầu tiên.</div></div>
   </div>
- </div>
- <div class="stats">
-  <div class="stat"><span>TỔNG CHUYẾN TOUR</span><strong id="sTours">0</strong></div>
-  <div class="stat"><span>TỔNG KHÁCH</span><strong id="sGuests">0</strong></div>
-  <div class="stat"><span>TỔNG PHÒNG</span><strong id="sRooms">0</strong></div>
-  <div class="stat"><span>TỔNG TIỀN CỌC (VNĐ)</span><strong id="sDeposit">0</strong></div>
- </div>
- <div class="card">
-  <h2>Chuyến tour gần nhất</h2>
-  <div id="recent"></div>
- </div>
-</section>
 
-<section id="tours" class="page">
- <div class="card">
-  <h2 id="tourHeading">Tạo chuyến tour mới</h2>
-  <form id="tourForm">
-   <input type="hidden" id="tourId">
-   <div class="grid">
-    <div class="field"><label>Mã chuyến tour</label><input id="tCode" placeholder="VD: PDT-001"></div>
-    <div class="field"><label>Tên chuyến tour *</label><input id="tName" required placeholder="Hà Tiên – Phú Quốc 3N3Đ"></div>
-    <div class="field"><label>Trạng thái</label><select id="tStatus"><option>Đang chuẩn bị</option><option>Đã xác nhận</option><option>Đang diễn ra</option><option>Hoàn thành</option><option>Đã hủy</option></select></div>
-    <div class="field"><label>Ngày khởi hành *</label><input id="tStart" type="date" required></div>
-    <div class="field"><label>Giờ tập trung</label><input id="tTime" type="time"></div>
-    <div class="field"><label>Ngày kết thúc</label><input id="tEnd" type="date"></div>
-    <div class="field"><label>Điểm đến</label><input id="tDestination" placeholder="Hà Tiên, Phú Quốc..."></div>
-    <div class="field"><label>Địa chỉ tập trung / điểm đón</label><input id="tPickup" placeholder="Địa chỉ, vị trí đón"></div>
-    <div class="field"><label>Địa chỉ trả khách</label><input id="tDropoff" placeholder="Điểm trả khách"></div>
-    <div class="field"><label>Trưởng đoàn</label><input id="tLeader"></div>
-    <div class="field"><label>Hướng dẫn viên</label><input id="tGuide"></div>
-    <div class="field"><label>Số điện thoại liên hệ</label><input id="tPhone" type="tel"></div>
-    <div class="field"><label>Số khách dự kiến</label><input id="tExpected" type="number" min="0" value="0"></div>
-    <div class="field"><label>Giá tour / khách (VNĐ)</label><input id="tPrice" type="number" min="0" value="0"></div>
-    <div class="field"><label>Ngân sách chi phí dự kiến (VNĐ)</label><input id="tBudget" type="number" min="0" value="0"></div>
-    <div class="field full"><label>Lịch trình chi tiết từng ngày</label><textarea id="tItinerary" placeholder="Ngày 1: Giờ đi, điểm tham quan, ăn uống, khách sạn...&#10;Ngày 2: ...&#10;Ngày 3: ..."></textarea></div>
-    <div class="field full"><label>Dịch vụ bao gồm / không bao gồm</label><textarea id="tServices" placeholder="Xe, vé tham quan, ăn uống, lưu trú..."></textarea></div>
-    <div class="field full"><label>Ghi chú nội bộ</label><textarea id="tNotes"></textarea></div>
+  <div id="tours" class="page hidden">
+   <div class="section-title"><h2>Quản lý chuyến tour</h2><button class="btn" onclick="resetForm('tourForm')">＋ Tour mới</button></div>
+   <div class="panel">
+    <h3>Thông tin đầy đủ chuyến tour</h3>
+    <form id="tourForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Tên chuyến tour *</label><input name="name" required placeholder="Hà Tiên – Phú Quốc 3N3Đ"></div>
+     <div class="field"><label>Mã tour</label><input name="code" placeholder="PD-2027-001"></div>
+     <div class="field"><label>Ngày khởi hành *</label><input name="start" type="date" required></div>
+     <div class="field"><label>Ngày kết thúc *</label><input name="end" type="date" required></div>
+     <div class="field"><label>Điểm xuất phát</label><input name="origin" placeholder="Địa điểm tập trung"></div>
+     <div class="field"><label>Điểm đến</label><input name="destination" placeholder="Các địa điểm tham quan"></div>
+     <div class="field full"><label>Lịch trình / tuyến đường tổng quát</label><textarea name="route" placeholder="Ngày 1..., Ngày 2..."></textarea></div>
+     <div class="field"><label>Địa chỉ tập trung / điểm đón</label><input name="pickup" placeholder="Địa chỉ và hướng dẫn"></div>
+     <div class="field"><label>Giờ tập trung</label><input name="meetTime" type="time"></div>
+     <div class="field"><label>Giờ xuất phát</label><input name="departTime" type="time"></div>
+     <div class="field"><label>Số khách dự kiến</label><input name="expected" type="number" min="0"></div>
+     <div class="field"><label>Trưởng đoàn / hướng dẫn viên</label><input name="leader"></div>
+     <div class="field"><label>Số điện thoại liên hệ</label><input name="phone" type="tel"></div>
+     <div class="field"><label>Giá tour mỗi khách (VNĐ)</label><input name="price" type="number" min="0"></div>
+     <div class="field"><label>Trạng thái</label><select name="status"><option>Đang chuẩn bị</option><option>Đã xác nhận</option><option>Đang diễn ra</option><option>Hoàn thành</option><option>Đã hủy</option></select></div>
+     <div class="field"><label>Đơn vị vận chuyển</label><input name="transport"></div>
+     <div class="field"><label>Khách sạn chính</label><input name="hotel"></div>
+     <div class="field"><label>Địa chỉ khách sạn</label><input name="hotelAddress"></div>
+     <div class="field"><label>Nhà hàng chính</label><input name="restaurant"></div>
+     <div class="field"><label>Ngân sách dự kiến (VNĐ)</label><input name="budget" type="number" min="0"></div>
+     <div class="field full"><label>Nội dung bao gồm / không bao gồm</label><textarea name="included"></textarea></div>
+     <div class="field full"><label>Ghi chú nội bộ</label><textarea name="notes"></textarea></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu chuyến tour</button><button class="btn" type="button" onclick="resetForm('tourForm')">Làm mới</button></div>
+    </form>
    </div>
-   <div class="actions">
-    <button class="primary" type="submit">Lưu chuyến tour</button>
-    <button type="button" onclick="newTour()">Làm mới biểu mẫu</button>
-   </div>
-  </form>
- </div>
- <div class="card">
-  <h2>Danh sách chuyến tour</h2>
-  <div class="field"><input id="tourSearch" placeholder="Tìm tên tour, mã tour, điểm đến..." oninput="renderTours()"></div>
-  <div id="tourList"></div>
- </div>
-</section>
-
-<section id="guests" class="page">
- <div class="card">
-  <h2>Thêm khách tham gia</h2>
-  <form id="guestForm">
-   <input type="hidden" id="gId">
-   <div class="grid">
-    <div class="field full"><label>Chọn chuyến tour *</label><select id="gTour" required></select></div>
-    <div class="field"><label>Họ và tên *</label><input id="gName" required></div>
-    <div class="field"><label>Số điện thoại</label><input id="gPhone" type="tel"></div>
-    <div class="field"><label>Địa chỉ khách / địa chỉ đón</label><input id="gAddress"></div>
-    <div class="field"><label>Số người đi cùng</label><input id="gCount" type="number" min="1" value="1"></div>
-    <div class="field"><label>Tiền đã cọc (VNĐ)</label><input id="gDeposit" type="number" min="0" value="0"></div>
-    <div class="field"><label>Tổng tiền phải trả (VNĐ)</label><input id="gTotal" type="number" min="0" value="0"></div>
-    <div class="field"><label>Điểm đón cụ thể</label><input id="gPickup"></div>
-    <div class="field"><label>Trạng thái thanh toán</label><select id="gPayment"><option>Chưa thanh toán</option><option>Đã cọc</option><option>Đã thanh toán đủ</option></select></div>
-    <div class="field full"><label>Ghi chú</label><textarea id="gNotes"></textarea></div>
-   </div>
-   <div class="actions"><button class="primary" type="submit">Lưu khách</button><button type="button" onclick="resetGuest()">Làm mới</button></div>
-  </form>
- </div>
- <div class="card"><h2>Danh sách khách</h2>
-  <div class="field"><select id="guestFilter" onchange="renderGuests()"><option value="">Tất cả chuyến tour</option></select></div>
-  <div id="guestList"></div>
- </div>
-</section>
-
-<section id="rooms" class="page">
- <div class="card">
-  <h2>Phân phòng khách sạn</h2>
-  <form id="roomForm">
-   <input type="hidden" id="rId">
-   <div class="grid">
-    <div class="field full"><label>Chuyến tour *</label><select id="rTour" required></select></div>
-    <div class="field"><label>Tên khách sạn</label><input id="rHotel" placeholder="Tên khách sạn"></div>
-    <div class="field"><label>Số / tên phòng</label><input id="rNumber" placeholder="Phòng 101"></div>
-    <div class="field"><label>Loại phòng</label><select id="rType"><option>Phòng đơn</option><option>Phòng đôi</option><option>Phòng 3 người</option><option>Phòng gia đình</option><option>Khác</option></select></div>
-    <div class="field"><label>Số khách ở</label><input id="rCount" type="number" min="1" value="2"></div>
-    <div class="field"><label>Tên khách lưu trú</label><input id="rGuests" placeholder="Tên các khách trong phòng"></div>
-    <div class="field"><label>Ngày nhận phòng</label><input id="rCheckin" type="date"></div>
-    <div class="field"><label>Ngày trả phòng</label><input id="rCheckout" type="date"></div>
-    <div class="field"><label>Chi phí phòng (VNĐ)</label><input id="rCost" type="number" min="0" value="0"></div>
-    <div class="field"><label>Trạng thái</label><select id="rStatus"><option>Chưa đặt</option><option>Đã đặt</option><option>Đã nhận phòng</option><option>Đã trả phòng</option></select></div>
-    <div class="field full"><label>Ghi chú</label><textarea id="rNotes"></textarea></div>
-   </div>
-   <div class="actions"><button class="primary" type="submit">Lưu phòng</button><button type="button" onclick="resetRoom()">Làm mới</button></div>
-  </form>
- </div>
- <div class="card"><h2>Danh sách phòng</h2>
-  <div class="field"><select id="roomFilter" onchange="renderRooms()"><option value="">Tất cả chuyến tour</option></select></div>
-  <div id="roomList"></div>
- </div>
-</section>
-
-<section id="vehicles" class="page">
- <div class="card">
-  <h2>Quản lý xe và tài xế</h2>
-  <form id="vehicleForm">
-   <input type="hidden" id="vId">
-   <div class="grid">
-    <div class="field full"><label>Chuyến tour *</label><select id="vTour" required></select></div>
-    <div class="field"><label>Biển số xe *</label><input id="vPlate" required placeholder="VD: 63A-123.45"></div>
-    <div class="field"><label>Loại xe</label><select id="vType"><option>Xe 4 chỗ</option><option>Xe 7 chỗ</option><option>Xe 16 chỗ</option><option>Xe 29 chỗ</option><option>Xe 34 chỗ</option><option>Xe 45 chỗ</option><option>Xe máy</option><option>Khác</option></select></div>
-    <div class="field"><label>Số ghế</label><input id="vSeats" type="number" min="1" value="16"></div>
-    <div class="field"><label>Tên tài xế</label><input id="vDriver"></div>
-    <div class="field"><label>Số điện thoại tài xế</label><input id="vPhone" type="tel"></div>
-    <div class="field"><label>Số khách phân bổ</label><input id="vPassengers" type="number" min="0" value="0"></div>
-    <div class="field"><label>Điểm đón / tuyến xe</label><input id="vRoute"></div>
-    <div class="field"><label>Chi phí xe (VNĐ)</label><input id="vCost" type="number" min="0" value="0"></div>
-    <div class="field"><label>Trạng thái xe</label><select id="vStatus"><option>Đang chờ</option><option>Đã xác nhận</option><option>Đang hoạt động</option><option>Hoàn thành</option></select></div>
-    <div class="field full"><label>Ghi chú</label><textarea id="vNotes"></textarea></div>
-   </div>
-   <div class="actions"><button class="primary" type="submit">Lưu xe</button><button type="button" onclick="resetVehicle()">Làm mới</button></div>
-  </form>
- </div>
- <div class="card"><h2>Danh sách xe</h2>
-  <div class="field"><select id="vehicleFilter" onchange="renderVehicles()"><option value="">Tất cả chuyến tour</option></select></div>
-  <div id="vehicleList"></div>
- </div>
-</section>
-
-<section id="reports" class="page">
- <div class="card no-print">
-  <h2>In biểu mẫu điều hành</h2>
-  <div class="field"><label>Chọn chuyến tour cần in</label><select id="reportTour"></select></div>
-  <div class="grid">
-   <div class="field"><label>Đơn vị / người lập phiếu</label><input id="company" value="PHÁT ĐẠT TRAVEL"></div>
-   <div class="field"><label>Số phiếu thu</label><input id="receiptNo" placeholder="PT-001"></div>
-   <div class="field"><label>Người nộp tiền</label><input id="payer"></div>
-   <div class="field"><label>Số tiền thu (VNĐ)</label><input id="receiptAmount" type="number" min="0" value="0"></div>
-   <div class="field full"><label>Nội dung thu</label><input id="receiptNote" placeholder="Tiền cọc / thanh toán tour..."></div>
+   <div class="panel"><h3>Danh sách chuyến tour</h3><div class="table-wrap"><table><thead><tr><th>Chuyến tour</th><th>Ngày đi – về</th><th>Khách</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="tourRows"></tbody></table></div></div>
   </div>
-  <div class="actions">
-   <button class="primary" onclick="printReport('itinerary')">In lịch trình tour</button>
-   <button onclick="printReport('receipt')">In phiếu thu / hóa đơn nội bộ</button>
-   <button onclick="printReport('guests')">In danh sách khách</button>
-   <button onclick="printReport('rooms')">In danh sách phòng</button>
-   <button onclick="printReport('vehicles')">In danh sách xe</button>
-   <button onclick="printReport('full')">In hồ sơ tour đầy đủ</button>
+
+  <div id="guests" class="page hidden">
+   <div class="section-title"><h2>Khách tham gia</h2></div>
+   <div class="note">Ảnh CCCD chứa dữ liệu nhạy cảm. Chỉ lưu khi có sự đồng ý của khách; hạn chế quyền truy cập và xóa khi không còn cần thiết.</div>
+   <div class="panel"><h3>Thông tin từng khách</h3>
+    <form id="guestForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Chọn chuyến tour *</label><select name="tourId" class="tourSelect" required></select></div>
+     <div class="field"><label>Họ và tên *</label><input name="name" required></div>
+     <div class="field"><label>Ngày sinh</label><input name="dob" type="date"></div>
+     <div class="field"><label>Giới tính</label><select name="gender"><option value="">Chưa chọn</option><option>Nam</option><option>Nữ</option><option>Khác</option></select></div>
+     <div class="field"><label>Số CCCD</label><input name="cccd" inputmode="numeric" maxlength="12"></div>
+     <div class="field"><label>Số điện thoại</label><input name="phone" type="tel"></div>
+     <div class="field"><label>Địa chỉ thường trú</label><input name="address"></div>
+     <div class="field"><label>Địa chỉ đón khách</label><input name="pickup"></div>
+     <div class="field"><label>Xe / số ghế</label><input name="seat" placeholder="Xe 01 / Ghế 12"></div>
+     <div class="field"><label>Khách sạn / số phòng</label><input name="room" placeholder="Khách sạn A / Phòng 203"></div>
+     <div class="field"><label>Tiền đã cọc (VNĐ)</label><input name="deposit" type="number" min="0" value="0"></div>
+     <div class="field"><label>Tiền còn lại (VNĐ)</label><input name="remaining" type="number" min="0" value="0"></div>
+     <div class="field"><label>Ảnh CCCD mặt trước</label><input name="front" type="file" accept="image/*"></div>
+     <div class="field"><label>Ảnh CCCD mặt sau</label><input name="back" type="file" accept="image/*"></div>
+     <div class="field full"><label>Ghi chú / yêu cầu đặc biệt</label><textarea name="notes"></textarea></div>
+     <div class="field full"><div class="photo-preview" id="guestPhotos"></div></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu khách tham gia</button><button class="btn" type="button" onclick="resetForm('guestForm')">Làm mới</button></div>
+    </form>
+   </div>
+   <div class="panel"><h3>Danh sách khách</h3><div class="table-wrap"><table><thead><tr><th>Họ tên</th><th>Ngày sinh</th><th>Tour</th><th>Điện thoại</th><th>Xe / phòng</th><th>Tiền cọc</th><th>Thao tác</th></tr></thead><tbody id="guestRows"></tbody></table></div></div>
   </div>
-  <p class="muted">Chọn biểu mẫu rồi dùng hộp thoại in của iPhone để lưu PDF hoặc in ra giấy.</p>
- </div>
- <div id="printArea"></div>
-</section>
-</main>
+
+  <div id="vehicles" class="page hidden">
+   <div class="section-title"><h2>Danh sách xe</h2></div>
+   <div class="panel"><h3>Thêm / sửa phương tiện</h3>
+    <form id="vehicleForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Chuyến tour *</label><select name="tourId" class="tourSelect" required></select></div>
+     <div class="field"><label>Tên xe / loại xe *</label><input name="name" required placeholder="Xe 45 chỗ"></div>
+     <div class="field"><label>Biển số xe</label><input name="plate"></div>
+     <div class="field"><label>Số chỗ</label><input name="seats" type="number" min="1"></div>
+     <div class="field"><label>Tên tài xế</label><input name="driver"></div>
+     <div class="field"><label>Số điện thoại tài xế</label><input name="phone" type="tel"></div>
+     <div class="field"><label>Giờ đón / xuất phát</label><input name="time" type="datetime-local"></div>
+     <div class="field"><label>Đơn vị vận tải</label><input name="company"></div>
+     <div class="field full"><label>Ghi chú / điểm đón</label><textarea name="notes"></textarea></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu xe</button><button class="btn" type="button" onclick="resetForm('vehicleForm')">Làm mới</button></div>
+    </form>
+   </div>
+   <div class="panel"><div class="table-wrap"><table><thead><tr><th>Xe / biển số</th><th>Tour</th><th>Số chỗ</th><th>Tài xế</th><th>Giờ đi</th><th>Thao tác</th></tr></thead><tbody id="vehicleRows"></tbody></table></div></div>
+  </div>
+
+  <div id="rooms" class="page hidden">
+   <div class="section-title"><h2>Khách sạn / phòng</h2></div>
+   <div class="panel"><h3>Thông tin phòng</h3>
+    <form id="roomForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Chuyến tour *</label><select name="tourId" class="tourSelect" required></select></div>
+     <div class="field"><label>Tên khách sạn *</label><input name="hotel" required></div>
+     <div class="field"><label>Địa chỉ khách sạn</label><input name="address"></div>
+     <div class="field"><label>Số phòng *</label><input name="roomNo" required></div>
+     <div class="field"><label>Loại phòng</label><select name="type"><option>Phòng đơn</option><option>Phòng đôi</option><option>Phòng ba</option><option>Phòng gia đình</option><option>Khác</option></select></div>
+     <div class="field"><label>Số người tối đa</label><input name="capacity" type="number" min="1"></div>
+     <div class="field"><label>Ngày nhận phòng</label><input name="checkin" type="date"></div>
+     <div class="field"><label>Ngày trả phòng</label><input name="checkout" type="date"></div>
+     <div class="field full"><label>Họ tên người ở phòng (ghi từng người)</label><textarea name="occupants" placeholder="Mỗi người một dòng: Họ tên – số điện thoại"></textarea></div>
+     <div class="field full"><label>Ghi chú / giá phòng</label><textarea name="notes"></textarea></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu phòng</button><button class="btn" type="button" onclick="resetForm('roomForm')">Làm mới</button></div>
+    </form>
+   </div>
+   <div class="panel"><div class="table-wrap"><table><thead><tr><th>Khách sạn</th><th>Phòng</th><th>Tour</th><th>Người ở phòng</th><th>Ngày nhận / trả</th><th>Thao tác</th></tr></thead><tbody id="roomRows"></tbody></table></div></div>
+  </div>
+
+  <div id="restaurants" class="page hidden">
+   <div class="section-title"><h2>Nhà hàng / bữa ăn</h2></div>
+   <div class="panel"><h3>Thông tin nhà hàng</h3>
+    <form id="restaurantForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Chuyến tour *</label><select name="tourId" class="tourSelect" required></select></div>
+     <div class="field"><label>Tên nhà hàng *</label><input name="name" required></div>
+     <div class="field"><label>Ngày ăn</label><input name="date" type="date"></div>
+     <div class="field"><label>Giờ ăn</label><input name="time" type="time"></div>
+     <div class="field"><label>Bữa ăn</label><select name="meal"><option>Ăn sáng</option><option>Ăn trưa</option><option>Ăn tối</option><option>Tiệc / khác</option></select></div>
+     <div class="field"><label>Số lượng khách</label><input name="people" type="number" min="0"></div>
+     <div class="field full"><label>Địa chỉ / liên hệ</label><input name="address"></div>
+     <div class="field"><label>Giá dự kiến (VNĐ)</label><input name="cost" type="number" min="0"></div>
+     <div class="field"><label>Người phụ trách / điện thoại</label><input name="contact"></div>
+     <div class="field full"><label>Thực đơn / ghi chú</label><textarea name="notes"></textarea></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu nhà hàng</button><button class="btn" type="button" onclick="resetForm('restaurantForm')">Làm mới</button></div>
+    </form>
+   </div>
+   <div class="panel"><div class="table-wrap"><table><thead><tr><th>Ngày / giờ</th><th>Nhà hàng</th><th>Bữa</th><th>Tour</th><th>Số khách</th><th>Thao tác</th></tr></thead><tbody id="restaurantRows"></tbody></table></div></div>
+  </div>
+
+  <div id="itinerary" class="page hidden">
+   <div class="section-title"><h2>Lịch trình từng ngày</h2></div>
+   <div class="panel"><h3>Thêm hoạt động</h3>
+    <form id="itineraryForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Chuyến tour *</label><select name="tourId" class="tourSelect" required></select></div>
+     <div class="field"><label>Ngày *</label><input name="date" type="date" required></div>
+     <div class="field"><label>Giờ bắt đầu</label><input name="time" type="time"></div>
+     <div class="field"><label>Giờ kết thúc</label><input name="endTime" type="time"></div>
+     <div class="field full"><label>Hoạt động / điểm đến *</label><input name="activity" required placeholder="Khởi hành / tham quan / ăn trưa"></div>
+     <div class="field full"><label>Địa chỉ / điểm tập trung</label><input name="address"></div>
+     <div class="field"><label>Xe / biển số</label><input name="vehicle"></div>
+     <div class="field"><label>Khách sạn / phòng</label><input name="room"></div>
+     <div class="field"><label>Nhà hàng</label><input name="restaurant"></div>
+     <div class="field"><label>Người phụ trách</label><input name="person"></div>
+     <div class="field full"><label>Chi tiết / ghi chú</label><textarea name="notes"></textarea></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu hoạt động</button><button class="btn" type="button" onclick="resetForm('itineraryForm')">Làm mới</button></div>
+    </form>
+   </div>
+   <div class="panel"><div class="table-wrap"><table><thead><tr><th>Ngày / giờ</th><th>Hoạt động</th><th>Địa điểm</th><th>Xe / phòng / nhà hàng</th><th>Tour</th><th>Thao tác</th></tr></thead><tbody id="itineraryRows"></tbody></table></div></div>
+  </div>
+
+  <div id="summary" class="page hidden">
+   <div class="section-title"><h2>Lịch trình tổng hợp</h2><button class="btn primary" onclick="printSummary()">▣ In lịch trình tổng</button></div>
+   <div class="panel no-print"><div class="grid"><div class="field"><label>Chọn chuyến tour</label><select id="summaryTour" class="tourSelect"></select></div><div class="field"><label>Ngày in / tiêu đề</label><input id="summaryTitle" value="LỊCH TRÌNH ĐIỀU HÀNH TOUR"></div></div></div>
+   <div id="summaryContent" class="panel"></div>
+  </div>
+
+  <div id="receipts" class="page hidden">
+   <div class="section-title"><h2>Hóa đơn / Phiếu thu</h2></div>
+   <div class="panel"><h3>Lập phiếu thu</h3>
+    <form id="receiptForm" class="grid">
+     <input type="hidden" name="id">
+     <div class="field"><label>Chuyến tour *</label><select name="tourId" class="tourSelect" required></select></div>
+     <div class="field"><label>Khách hàng *</label><select name="guestId" id="receiptGuest" required></select></div>
+     <div class="field"><label>Số phiếu</label><input name="number" placeholder="PT-001"></div>
+     <div class="field"><label>Ngày thu</label><input name="date" type="date" required></div>
+     <div class="field"><label>Số tiền thu (VNĐ) *</label><input name="amount" type="number" min="1" required></div>
+     <div class="field"><label>Hình thức thanh toán</label><select name="method"><option>Tiền mặt</option><option>Chuyển khoản</option><option>Khác</option></select></div>
+     <div class="field full"><label>Nội dung thu</label><textarea name="notes" placeholder="Tiền cọc / thanh toán tour..."></textarea></div>
+     <div class="field full actions"><button class="btn primary" type="submit">Lưu phiếu thu</button></div>
+    </form>
+   </div>
+   <div class="panel"><h3>Danh sách phiếu thu</h3><div class="table-wrap"><table><thead><tr><th>Số phiếu</th><th>Ngày</th><th>Khách</th><th>Tour</th><th>Số tiền</th><th>Thao tác</th></tr></thead><tbody id="receiptRows"></tbody></table></div></div>
+  </div>
+
+  <div id="settings" class="page hidden">
+   <div class="section-title"><h2>Sao lưu dữ liệu</h2></div>
+   <div class="panel"><h3>Sao lưu và khôi phục</h3>
+    <p>Xuất dữ liệu ra tệp JSON để sao lưu hoặc chuyển sang thiết bị khác. Tệp có thể chứa ảnh CCCD, số điện thoại và thông tin riêng tư; hãy lưu ở nơi an toàn.</p>
+    <div class="actions"><button class="btn primary" onclick="exportData()">Tải bản sao lưu</button><label class="btn">Khôi phục JSON<input id="importFile" type="file" accept=".json,application/json" hidden onchange="importData(event)"></label><button class="btn danger" onclick="clearAll()">Xóa toàn bộ dữ liệu</button></div>
+   </div>
+  </div>
+  <div class="print-heading hidden"><h2>PHÁT ĐẠT TRAVEL</h2><p id="printSubtitle"></p></div>
+ </main>
+</div>
+<footer class="footer"><span>© 2026 PHÁT ĐẠT TRAVEL. Bản quyền thuộc về Phát Đạt Travel.</span><span>Kết nối hành trình · Lan tỏa giá trị</span></footer>
+<div id="toast"></div>
 
 <script>
-const KEY='pdtravel_manager_v2';
-let db={tours:[],guests:[],rooms:[],vehicles:[]};
-try{const saved=localStorage.getItem(KEY);if(saved)db=JSON.parse(saved)}catch(e){}
-const $=id=>document.getElementById(id);
-const val=id=>$(id).value.trim();
-const num=id=>Number($(id).value)||0;
-const money=n=>(Number(n)||0).toLocaleString('vi-VN')+' ₫';
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const br=s=>esc(s).replace(/\n/g,'<br>');
-function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function tour(id){return db.tours.find(x=>x.id===id)}
-function tourName(id){return tour(id)?.name||'Chưa chọn tour'}
-function showPage(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
- document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
- if(id==='reports')buildReport();
- window.scrollTo(0,0)
-}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
-function options(selectId,filter=false,selected=''){
- const s=$(selectId),old=selected||s.value;
- s.innerHTML=(filter?'<option value="">Tất cả chuyến tour</option>':'<option value="">-- Chọn chuyến tour --</option>')+
- db.tours.map(t=>`<option value="${t.id}">${esc(t.code||'')} ${esc(t.name)}</option>`).join('');
- s.value=old;
-}
-function refreshOptions(){
- ['gTour','rTour','vTour','reportTour'].forEach(id=>options(id));
- ['guestFilter','roomFilter','vehicleFilter'].forEach(id=>options(id,true));
-}
-function newTour(){
- $('tourForm').reset();$('tourId').value='';$('tExpected').value=0;$('tPrice').value=0;$('tBudget').value=0;
- $('tourHeading').textContent='Tạo chuyến tour mới';showPage('tours')
-}
-$('tourForm').onsubmit=e=>{
- e.preventDefault();
- const id=val('tourId')||uid();
- const obj={id,code:val('tCode')||'PDT-'+id.slice(-5).toUpperCase(),name:val('tName'),status:val('tStatus'),start:val('tStart'),time:val('tTime'),end:val('tEnd'),destination:val('tDestination'),pickup:val('tPickup'),dropoff:val('tDropoff'),leader:val('tLeader'),guide:val('tGuide'),phone:val('tPhone'),expected:num('tExpected'),price:num('tPrice'),budget:num('tBudget'),itinerary:val('tItinerary'),services:val('tServices'),notes:val('tNotes')};
- const i=db.tours.findIndex(t=>t.id===id);if(i>=0)db.tours[i]=obj;else db.tours.unshift(obj);
- save();$('tourId').value=id;$('tourHeading').textContent='Đã lưu chuyến tour';alert('Đã lưu thông tin chuyến tour.')
-};
-function editTour(id){
- const t=tour(id);if(!t)return;showPage('tours');
- const map={tourId:'id',tCode:'code',tName:'name',tStatus:'status',tStart:'start',tTime:'time',tEnd:'end',tDestination:'destination',tPickup:'pickup',tDropoff:'dropoff',tLeader:'leader',tGuide:'guide',tPhone:'phone',tExpected:'expected',tPrice:'price',tBudget:'budget',tItinerary:'itinerary',tServices:'services',tNotes:'notes'};
- Object.entries(map).forEach(([k,v])=>$(k).value=t[v]??'');
- $('tourHeading').textContent='Chỉnh sửa chuyến tour'
-}
-function delItem(type,id){
- if(!confirm('Bạn chắc chắn muốn xóa mục này?'))return;
- db[type]=db[type].filter(x=>x.id!==id);save()
-}
-function renderTours(){
- const q=val('tourSearch').toLowerCase();
- const arr=db.tours.filter(t=>(t.name+' '+t.code+' '+t.destination).toLowerCase().includes(q));
- $('tourList').innerHTML=arr.length?arr.map(t=>`<div class="listitem"><strong>${esc(t.name)}</strong><div class="muted">${esc(t.code)} · ${esc(t.destination)} · ${esc(t.start)} đến ${esc(t.end)}</div><p><span class="badge">${esc(t.status)}</span> · Dự kiến ${t.expected} khách · ${money(t.price)}/khách</p><div class="actions"><button onclick="editTour('${t.id}')">Sửa</button><button onclick="chooseReport('${t.id}')">In biểu mẫu</button><button class="danger" onclick="delItem('tours','${t.id}')">Xóa</button></div></div>`).join(''):'<div class="empty">Chưa có chuyến tour. Hãy tạo chuyến đầu tiên.</div>';
-}
-function resetGuest(){$('guestForm').reset();$('gId').value='';$('gCount').value=1;$('gDeposit').value=0;$('gTotal').value=0}
-$('guestForm').onsubmit=e=>{
- e.preventDefault();const id=val('gId')||uid(),o={id,tourId:val('gTour'),name:val('gName'),phone:val('gPhone'),address:val('gAddress'),count:Math.max(1,num('gCount')),deposit:num('gDeposit'),total:num('gTotal'),pickup:val('gPickup'),payment:val('gPayment'),notes:val('gNotes')};
- const i=db.guests.findIndex(x=>x.id===id);if(i>=0)db.guests[i]=o;else db.guests.unshift(o);save();resetGuest();alert('Đã lưu khách.')
-};
-function editGuest(id){
- const g=db.guests.find(x=>x.id===id);if(!g)return;showPage('guests');
- const m={gId:'id',gTour:'tourId',gName:'name',gPhone:'phone',gAddress:'address',gCount:'count',gDeposit:'deposit',gTotal:'total',gPickup:'pickup',gPayment:'payment',gNotes:'notes'};
- Object.entries(m).forEach(([k,v])=>$(k).value=g[v]??'')
-}
-function renderGuests(){
- const f=val('guestFilter'),a=db.guests.filter(g=>!f||g.tourId===f);
- $('guestList').innerHTML=a.length?`<div class="tablewrap"><table><thead><tr><th>Khách</th><th>Chuyến tour</th><th>Địa chỉ đón</th><th>Số người</th><th>Tiền cọc</th><th>Còn lại</th><th></th></tr></thead><tbody>${a.map(g=>`<tr><td>${esc(g.name)}<br>${esc(g.phone)}<br><span class="badge">${esc(g.payment)}</span></td><td>${esc(tourName(g.tourId))}</td><td>${esc(g.pickup||g.address)}</td><td>${g.count}</td><td>${money(g.deposit)}</td><td>${money(Math.max(0,g.total-g.deposit))}</td><td><button onclick="editGuest('${g.id}')">Sửa</button> <button class="danger" onclick="delItem('guests','${g.id}')">Xóa</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có khách trong danh sách.</div>'
-}
-function resetRoom(){$('roomForm').reset();$('rId').value='';$('rCount').value=2;$('rCost').value=0}
-$('roomForm').onsubmit=e=>{
- e.preventDefault();const id=val('rId')||uid(),o={id,tourId:val('rTour'),hotel:val('rHotel'),number:val('rNumber'),type:val('rType'),count:num('rCount'),guests:val('rGuests'),checkin:val('rCheckin'),checkout:val('rCheckout'),cost:num('rCost'),status:val('rStatus'),notes:val('rNotes')};
- const i=db.rooms.findIndex(x=>x.id===id);if(i>=0)db.rooms[i]=o;else db.rooms.unshift(o);save();resetRoom();alert('Đã lưu phòng.')
-};
-function editRoom(id){
- const r=db.rooms.find(x=>x.id===id);if(!r)return;showPage('rooms');
- const m={rId:'id',rTour:'tourId',rHotel:'hotel',rNumber:'number',rType:'type',rCount:'count',rGuests:'guests',rCheckin:'checkin',rCheckout:'checkout',rCost:'cost',rStatus:'status',rNotes:'notes'};
- Object.entries(m).forEach(([k,v])=>$(k).value=r[v]??'')
-}
-function renderRooms(){
- const f=val('roomFilter'),a=db.rooms.filter(r=>!f||r.tourId===f);
- $('roomList').innerHTML=a.length?`<div class="tablewrap"><table><thead><tr><th>Khách sạn / phòng</th><th>Tour</th><th>Loại phòng</th><th>Khách ở</th><th>Ngày ở</th><th>Chi phí</th><th></th></tr></thead><tbody>${a.map(r=>`<tr><td>${esc(r.hotel)}<br><b>${esc(r.number)}</b><br>${esc(r.status)}</td><td>${esc(tourName(r.tourId))}</td><td>${esc(r.type)} (${r.count} khách)</td><td>${esc(r.guests)}</td><td>${esc(r.checkin)} – ${esc(r.checkout)}</td><td>${money(r.cost)}</td><td><button onclick="editRoom('${r.id}')">Sửa</button> <button class="danger" onclick="delItem('rooms','${r.id}')">Xóa</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có thông tin phòng.</div>'
-}
-function resetVehicle(){$('vehicleForm').reset();$('vId').value='';$('vSeats').value=16;$('vPassengers').value=0;$('vCost').value=0}
-$('vehicleForm').onsubmit=e=>{
- e.preventDefault();const id=val('vId')||uid(),o={id,tourId:val('vTour'),plate:val('vPlate'),type:val('vType'),seats:num('vSeats'),driver:val('vDriver'),phone:val('vPhone'),passengers:num('vPassengers'),route:val('vRoute'),cost:num('vCost'),status:val('vStatus'),notes:val('vNotes')};
- const i=db.vehicles.findIndex(x=>x.id===id);if(i>=0)db.vehicles[i]=o;else db.vehicles.unshift(o);save();resetVehicle();alert('Đã lưu xe.')
-};
-function editVehicle(id){
- const v=db.vehicles.find(x=>x.id===id);if(!v)return;showPage('vehicles');
- const m={vId:'id',vTour:'tourId',vPlate:'plate',vType:'type',vSeats:'seats',vDriver:'driver',vPhone:'phone',vPassengers:'passengers',vRoute:'route',vCost:'cost',vStatus:'status',vNotes:'notes'};
- Object.entries(m).forEach(([k,k2])=>$(k).value=v[k2]??'')
-}
-function renderVehicles(){
- const f=val('vehicleFilter'),a=db.vehicles.filter(v=>!f||v.tourId===f);
- $('vehicleList').innerHTML=a.length?`<div class="tablewrap"><table><thead><tr><th>Xe</th><th>Tour</th><th>Tài xế</th><th>Số ghế</th><th>Khách phân bổ</th><th>Chi phí</th><th></th></tr></thead><tbody>${a.map(v=>`<tr><td><b>${esc(v.plate)}</b><br>${esc(v.type)}<br>${esc(v.status)}</td><td>${esc(tourName(v.tourId))}</td><td>${esc(v.driver)}<br>${esc(v.phone)}</td><td>${v.seats}</td><td>${v.passengers}</td><td>${money(v.cost)}</td><td><button onclick="editVehicle('${v.id}')">Sửa</button> <button class="danger" onclick="delItem('vehicles','${v.id}')">Xóa</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có xe được phân công.</div>'
-}
-function chooseReport(id){showPage('reports');$('reportTour').value=id;buildReport()}
-function buildReport(){options('reportTour');}
-function reportGuests(t){return db.guests.filter(g=>g.tourId===t.id)}
-function table(headers,rows){
- return `<div class="tablewrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join(''):`<tr><td colspan="${headers.length}">Chưa có dữ liệu</td></tr>`}</tbody></table></div>`
-}
-function printReport(kind){
- const t=tour(val('reportTour'));
- if(!t){alert('Bạn cần tạo và chọn chuyến tour trước.');return}
- const guests=reportGuests(t),rooms=db.rooms.filter(x=>x.tourId===t.id),vehicles=db.vehicles.filter(x=>x.tourId===t.id);
- const title={'itinerary':'LỊCH TRÌNH TOUR','receipt':'PHIẾU THU NỘI BỘ','guests':'DANH SÁCH KHÁCH THAM GIA','rooms':'DANH SÁCH PHÂN PHÒNG','vehicles':'DANH SÁCH XE VÀ TÀI XẾ','full':'HỒ SƠ ĐIỀU HÀNH TOUR ĐẦY ĐỦ'}[kind];
- const heading=`<h2>${title}</h2><p style="text-align:center"><b>${esc($( 'company').value||'PHÁT ĐẠT TRAVEL')}</b></p>`;
- const info=`<h3>${esc(t.name)}</h3><p><b>Mã tour:</b> ${esc(t.code)} &nbsp; <b>Trạng thái:</b> ${esc(t.status)}</p><p><b>Thời gian:</b> ${esc(t.start)} ${esc(t.time)} – ${esc(t.end)}</p><p><b>Điểm đến:</b> ${esc(t.destination)}</p><p><b>Điểm tập trung:</b> ${esc(t.pickup)}</p><p><b>Điểm trả:</b> ${esc(t.dropoff)}</p><p><b>Trưởng đoàn:</b> ${esc(t.leader)} &nbsp; <b>HDV:</b> ${esc(t.guide)} &nbsp; <b>Điện thoại:</b> ${esc(t.phone)}</p>`;
- const itinerary=`<h3>Lịch trình chi tiết</h3><div>${br(t.itinerary||'Chưa nhập lịch trình')}</div><h3>Dịch vụ</h3><div>${br(t.services||'Chưa nhập dịch vụ')}</div><h3>Ghi chú điều hành</h3><div>${br(t.notes||'')}</div>`;
- const guestTable=table(['STT','Họ tên','Điện thoại','Địa chỉ / điểm đón','Số người','Tiền cọc','Còn lại'],guests.map((g,i)=>[i+1,esc(g.name),esc(g.phone),esc(g.pickup||g.address),g.count,money(g.deposit),money(Math.max(0,g.total-g.deposit))]));
- const roomTable=table(['STT','Khách sạn','Phòng','Loại','Khách ở','Nhận – trả','Chi phí'],rooms.map((r,i)=>[i+1,esc(r.hotel),esc(r.number),esc(r.type),esc(r.guests)+' ('+r.count+')',esc(r.checkin)+' – '+esc(r.checkout),money(r.cost)]));
- const vehicleTable=table(['STT','Biển số','Loại xe','Tài xế','Điện thoại','Ghế','Khách','Chi phí'],vehicles.map((v,i)=>[i+1,esc(v.plate),esc(v.type),esc(v.driver),esc(v.phone),v.seats,v.passengers,money(v.cost)]));
- let body='';
- if(kind==='itinerary')body=info+itinerary;
- if(kind==='guests')body=info+guestTable;
- if(kind==='rooms')body=info+roomTable;
- if(kind==='vehicles')body=info+vehicleTable;
- if(kind==='full')body=info+`<p><b>Khách dự kiến:</b> ${t.expected} &nbsp; <b>Khách ghi danh:</b> ${guests.reduce((s,g)=>s+g.count,0)}</p><p><b>Giá tour/khách:</b> ${money(t.price)} &nbsp; <b>Ngân sách dự kiến:</b> ${money(t.budget)}</p>`+itinerary+'<h3>DANH SÁCH KHÁCH</h3>'+guestTable+'<h3>DANH SÁCH PHÒNG</h3>'+roomTable+'<h3>DANH SÁCH XE</h3>'+vehicleTable;
- if(kind==='receipt'){
-  const amount=num('receiptAmount');
-  body=`<div style="text-align:center"><h3>PHIẾU THU TIỀN</h3><p>Số phiếu: ${esc(val('receiptNo')||'Chưa cấp số')}</p></div><p>Ngày lập: ${new Date().toLocaleDateString('vi-VN')}</p><p>Người nộp tiền: ${esc(val('payer'))}</p>${info}<p>Nội dung thu: ${esc(val('receiptNote'))}</p><h3>Số tiền: ${money(amount)}</h3><p>Bằng chữ: ....................................................................................</p><p>........................................................................................................</p><div style="display:flex;justify-content:space-around;text-align:center;margin-top:45px"><div>Người nộp tiền<br><br><br>(Ký, ghi rõ họ tên)</div><div>Người thu tiền<br><br><br>(Ký, ghi rõ họ tên)</div></div><p class="muted">Phiếu thu nội bộ, không thay thế hóa đơn điện tử theo quy định thuế.</p>`
- }
- $('printArea').innerHTML=`<div class="card">${heading}${body}<hr><p style="text-align:right">Ngày in: ${new Date().toLocaleDateString('vi-VN')}</p></div>`;
- window.print()
-}
-function renderAll(){
- refreshOptions();renderTours();renderGuests();renderRooms();renderVehicles();
- $('sTours').textContent=db.tours.length;
- $('sGuests').textContent=db.guests.reduce((s,g)=>s+g.count,0);
- $('sRooms').textContent=db.rooms.length;
- $('sDeposit').textContent=money(db.guests.reduce((s,g)=>s+g.deposit,0));
- $('recent').innerHTML=db.tours.slice(0,5).map(t=>`<div class="listitem"><strong>${esc(t.name)}</strong><div class="muted">${esc(t.start)} – ${esc(t.end)} · ${esc(t.destination)}</div><div class="actions"><button onclick="editTour('${t.id}')">Chi tiết / sửa</button><button onclick="chooseReport('${t.id}')">In lịch trình</button></div></div>`).join('')||'<div class="empty">Chưa có chuyến tour nào.</div>';
-}
+const KEY='phatDatTravel_v3';
+const emptyData=()=>({tours:[],guests:[],vehicles:[],rooms:[],restaurants:[],itineraries:[],receipts:[]});
+let db=loadData();
+function loadData(){try{return {...emptyData(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return emptyData()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db));renderAll()}catch(e){alert('Không đủ dung lượng lưu dữ liệu. Hãy giảm kích thước ảnh CCCD hoặc sao lưu và xóa dữ liệu cũ.')}} 
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function money(n){return Number(n||0).toLocaleString('vi-VN')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function tourName(tid){return db.tours.find(x=>x.id===tid)?.name||'—'}
+function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2400)}
+function openPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(page).classList.remove('hidden');document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='summary')renderSummary();window.scrollTo(0,0)}
+document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
+function fillSelects(){document.querySelectorAll('.tourSelect').forEach(s=>{let old=s.value;s.innerHTML='<option value="">-- Chọn chuyến tour --</option>'+db.tours.map(t=>`<option value="${esc(t.id)}">${esc(t.name)} (${esc(t.start||'Chưa có ngày')})</option>`).join('');if([...s.options].some(o=>o.value===old))s.value=old});let g=document.getElementById('receiptGuest'),old=g.value;g.innerHTML='<option value="">-- Chọn khách --</option>'+db.guests.map(x=>`<option value="${esc(x.id)}">${esc(x.name)} · ${esc(tourName(x.tourId))}</option>`).join('');if([...g.options].some(o=>o.value===old))g.value=old}
+function renderAll(){fillSelects();renderTours();renderGuests();renderVehicles();renderRooms();renderRestaurants();renderItineraries();renderReceipts();renderHome();renderSummary()}
+function rowActions(type,x){return `<button class="btn small" onclick="editItem('${type}','${x.id}')">Sửa</button> <button class="btn small danger" onclick="deleteItem('${type}','${x.id}')">Xóa</button>`}
+function renderTours(){let el=document.getElementById('tourRows');el.innerHTML=db.tours.map(t=>`<tr><td><b>${esc(t.name)}</b><br><small>${esc(t.code||'')}</small></td><td>${esc(t.start||'—')} – ${esc(t.end||'—')}</td><td>${db.guests.filter(g=>g.tourId===t.id).length}/${esc(t.expected||'—')}</td><td><span class="badge">${esc(t.status||'Đang chuẩn bị')}</span></td><td>${rowActions('tours',t)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Chưa có chuyến tour.</td></tr>'}
+function renderGuests(){document.getElementById('guestRows').innerHTML=db.guests.map(g=>`<tr><td><b>${esc(g.name)}</b><br><small>CCCD: ${esc(g.cccd||'Chưa nhập')}</small></td><td>${esc(g.dob||'—')}</td><td>${esc(tourName(g.tourId))}</td><td>${esc(g.phone||'—')}</td><td>${esc(g.seat||'—')}<br>${esc(g.room||'—')}</td><td>${money(g.deposit)}</td><td>${rowActions('guests',g)}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">Chưa có khách.</td></tr>'}
+function renderVehicles(){document.getElementById('vehicleRows').innerHTML=db.vehicles.map(x=>`<tr><td>${esc(x.name)}<br>${esc(x.plate||'')}</td><td>${esc(tourName(x.tourId))}</td><td>${esc(x.seats||'—')}</td><td>${esc(x.driver||'—')}<br>${esc(x.phone||'')}</td><td>${esc(x.time||'—')}</td><td>${rowActions('vehicles',x)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Chưa có xe.</td></tr>'}
+function renderRooms(){document.getElementById('roomRows').innerHTML=db.rooms.map(x=>`<tr><td>${esc(x.hotel)}<br><small>${esc(x.address||'')}</small></td><td>${esc(x.roomNo)}<br>${esc(x.type||'')}</td><td>${esc(tourName(x.tourId))}</td><td>${esc(x.occupants||'—').replace(/\n/g,'<br>')}</td><td>${esc(x.checkin||'—')} / ${esc(x.checkout||'—')}</td><td>${rowActions('rooms',x)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Chưa có phòng.</td></tr>'}
+function renderRestaurants(){document.getElementById('restaurantRows').innerHTML=db.restaurants.map(x=>`<tr><td>${esc(x.date||'—')}<br>${esc(x.time||'')}</td><td><b>${esc(x.name)}</b><br>${esc(x.address||'')}</td><td>${esc(x.meal||'—')}</td><td>${esc(tourName(x.tourId))}</td><td>${esc(x.people||'—')}</td><td>${rowActions('restaurants',x)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Chưa có nhà hàng.</td></tr>'}
+function renderItineraries(){let arr=[...db.itineraries].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));document.getElementById('itineraryRows').innerHTML=arr.map(x=>`<tr><td>${esc(x.date)}<br>${esc(x.time||'')} – ${esc(x.endTime||'')}</td><td><b>${esc(x.activity)}</b><br>${esc(x.notes||'')}</td><td>${esc(x.address||'—')}</td><td>Xe: ${esc(x.vehicle||'—')}<br>Phòng: ${esc(x.room||'—')}<br>Nhà hàng: ${esc(x.restaurant||'—')}</td><td>${esc(tourName(x.tourId))}</td><td>${rowActions('itineraries',x)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Chưa có lịch trình.</td></tr>'}
+function renderReceipts(){document.getElementById('receiptRows').innerHTML=db.receipts.map(x=>`<tr><td>${esc(x.number||'—')}</td><td>${esc(x.date||'—')}</td><td>${esc(db.guests.find(g=>g.id===x.guestId)?.name||'—')}</td><td>${esc(tourName(x.tourId))}</td><td>${money(x.amount)} VNĐ</td><td><button class="btn small primary" onclick="printReceipt('${x.id}')">In phiếu</button> ${rowActions('receipts',x)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Chưa có phiếu thu.</td></tr>'}
+function renderHome(){document.getElementById('statTours').textContent=db.tours.length;document.getElementById('statGuests').textContent=db.guests.length;document.getElementById('statVehicles').textContent=db.vehicles.length;document.getElementById('statDeposits').textContent=money(db.guests.reduce((s,g)=>s+Number(g.deposit||0),0));document.getElementById('recentTours').innerHTML=db.tours.length?`<div class="table-wrap"><table><thead><tr><th>Chuyến tour</th><th>Ngày đi</th><th>Trạng thái</th><th></th></tr></thead><tbody>${db.tours.slice(-5).reverse().map(t=>`<tr><td>${esc(t.name)}</td><td>${esc(t.start||'—')}</td><td>${esc(t.status||'—')}</td><td><button class="btn small" onclick="editItem('tours','${t.id}')">Mở</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có chuyến tour nào. Hãy tạo chuyến tour đầu tiên.</div>'}
+function renderSummary(){let s=document.getElementById('summaryContent');if(!s)return;let tid=document.getElementById('summaryTour').value;let tours=tid?db.tours.filter(t=>t.id===tid):db.tours;if(!tours.length){s.innerHTML='<div class="empty">Chưa có chuyến tour. Tạo tour trước để xem lịch trình tổng.</div>';return}s.innerHTML=tours.map(t=>{let guests=db.guests.filter(g=>g.tourId===t.id),vehicles=db.vehicles.filter(x=>x.tourId===t.id),rooms=db.rooms.filter(x=>x.tourId===t.id),restaurants=db.restaurants.filter(x=>x.tourId===t.id).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)),acts=db.itineraries.filter(x=>x.tourId===t.id).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));return `<h2>${esc(t.name)}</h2><p><b>Mã tour:</b> ${esc(t.code||'—')} · <b>Ngày:</b> ${esc(t.start||'—')} đến ${esc(t.end||'—')}</p><p><b>Điểm đi:</b> ${esc(t.origin||'—')} · <b>Điểm đến:</b> ${esc(t.destination||'—')}</p><p><b>Tập trung:</b> ${esc(t.pickup||'—')} lúc ${esc(t.meetTime||'—')} · <b>Xuất phát:</b> ${esc(t.departTime||'—')}</p><p><b>Trưởng đoàn:</b> ${esc(t.leader||'—')} · <b>Liên hệ:</b> ${esc(t.phone||'—')}</p><p><b>Đường đi:</b> ${esc(t.route||'—').replace(/\n/g,'<br>')}</p><hr><h3>1. Danh sách khách (${guests.length})</h3><div class="table-wrap"><table><tr><th>Họ tên</th><th>Ngày sinh</th><th>Điện thoại</th><th>Xe / ghế</th><th>Khách sạn / phòng</th></tr>${guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.dob||'—')}</td><td>${esc(g.phone||'—')}</td><td>${esc(g.seat||'—')}</td><td>${esc(g.room||'—')}</td></tr>`).join('')||'<tr><td colspan="5">Chưa có khách</td></tr>'}</table></div><h3>2. Phương tiện</h3><div class="table-wrap"><table><tr><th>Xe</th><th>Biển số</th><th>Số chỗ</th><th>Tài xế / liên hệ</th><th>Giờ đi</th></tr>${vehicles.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.plate||'—')}</td><td>${esc(v.seats||'—')}</td><td>${esc(v.driver||'—')} / ${esc(v.phone||'—')}</td><td>${esc(v.time||'—')}</td></tr>`).join('')||'<tr><td colspan="5">Chưa có xe</td></tr>'}</table></div><h3>3. Khách sạn / phân phòng</h3><div class="table-wrap"><table><tr><th>Khách sạn / địa chỉ</th><th>Phòng</th><th>Loại phòng</th><th>Danh sách người ở</th><th>Nhận / trả</th></tr>${rooms.map(r=>`<tr><td>${esc(r.hotel)}<br>${esc(r.address||'')}</td><td>${esc(r.roomNo)}</td><td>${esc(r.type||'')}</td><td>${esc(r.occupants||'—').replace(/\n/g,'<br>')}</td><td>${esc(r.checkin||'—')} / ${esc(r.checkout||'—')}</td></tr>`).join('')||'<tr><td colspan="5">Chưa phân phòng</td></tr>'}</table></div><h3>4. Nhà hàng / giờ ăn</h3><div class="table-wrap"><table><tr><th>Ngày</th><th>Giờ</th><th>Bữa</th><th>Nhà hàng / địa chỉ</th><th>Số khách</th><th>Thực đơn / ghi chú</th></tr>${restaurants.map(r=>`<tr><td>${esc(r.date||'—')}</td><td>${esc(r.time||'—')}</td><td>${esc(r.meal||'')}</td><td>${esc(r.name)}<br>${esc(r.address||'')}</td><td>${esc(r.people||'—')}</td><td>${esc(r.notes||'')}</td></tr>`).join('')||'<tr><td colspan="6">Chưa có nhà hàng</td></tr>'}</table></div><h3>5. Lịch trình theo ngày / giờ</h3><div class="table-wrap"><table><tr><th>Ngày</th><th>Thời gian</th><th>Hoạt động / địa chỉ</th><th>Xe</th><th>Khách sạn / phòng</th><th>Nhà hàng</th></tr>${acts.map(a=>`<tr><td>${esc(a.date)}</td><td>${esc(a.time||'—')} – ${esc(a.endTime||'—')}</td><td>${esc(a.activity)}<br>${esc(a.address||'')}<br>${esc(a.notes||'')}</td><td>${esc(a.vehicle||'—')}</td><td>${esc(a.room||'—')}</td><td>${esc(a.restaurant||'—')}</td></tr>`).join('')||'<tr><td colspan="6">Chưa nhập hoạt động</td></tr>'}</table></div><h3>6. Thông tin chi phí</h3><p><b>Giá mỗi khách:</b> ${money(t.price)} VNĐ · <b>Ngân sách:</b> ${money(t.budget)} VNĐ · <b>Tiền cọc ghi nhận:</b> ${money(guests.reduce((s,g)=>s+Number(g.deposit||0),0))} VNĐ</p><p><b>Bao gồm / không bao gồm:</b> ${esc(t.included||'—')}</p><p><b>Ghi chú điều hành:</b> ${esc(t.notes||'—')}</p><hr>`}).join('')}
+document.getElementById('summaryTour').addEventListener('change',renderSummary);
+const types={tours:'tourForm',guests:'guestForm',vehicles:'vehicleForm',rooms:'roomForm',restaurants:'restaurantForm',itineraries:'itineraryForm',receipts:'receiptForm'};
+function resetForm(fid){let f=document.getElementById(fid);f.reset();if(f.elements.id)f.elements.id.value='';if(fid==='guestForm')document.getElementById('guestPhotos').innerHTML='';if(fid==='receiptForm')f.elements.date.value=new Date().toISOString().slice(0,10)}
+function getForm(f){return Object.fromEntries(new FormData(f).entries())}
+function saveForm(type,f){f.addEventListener('submit',async e=>{e.preventDefault();let x=getForm(f);if(!x.id)x.id=id();if(type==='guests'){for(let side of ['front','back']){let file=f.elements[side].files[0];if(file)x[side]=await resizeImage(file);else if(!x[side])x[side]=''}}let arr=db[type],i=arr.findIndex(z=>z.id===x.id);if(i>=0)arr[i]={...arr[i],...x};else arr.push(x);save();resetForm(f.id);toast('Đã lưu thông tin thành công')})}
+function resizeImage(file){return new Promise((resolve,reject)=>{let reader=new FileReader();reader.onload=()=>{let img=new Image();img.onload=()=>{let scale=Math.min(1,900/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.65))};img.onerror=()=>reject(Error('Ảnh không hợp lệ'));img.src=reader.result};reader.onerror=reject;reader.readAsDataURL(file)})}
+Object.entries(types).forEach(([type,fid])=>saveForm(type,document.getElementById(fid)));
+document.getElementById('guestForm').elements.front.addEventListener('change',previewGuest);
+document.getElementById('guestForm').elements.back.addEventListener('change',previewGuest);
+function previewGuest(){let f=document.getElementById('guestForm');let el=document.getElementById('guestPhotos');el.innerHTML='';['front','back'].forEach(k=>{let file=f.elements[k].files[0];if(file){let img=document.createElement('img');img.src=URL.createObjectURL(file);img.alt=k==='front'?'CCCD mặt trước':'CCCD mặt sau';el.append(img)}})}
+function editItem(type,itemId){let x=db[type].find(z=>z.id===itemId);if(!x)return;openPage(type==='tours'?'tours':type==='guests'?'guests':type==='vehicles'?'vehicles':type==='rooms'?'rooms':type==='restaurants'?'restaurants':type==='itineraries'?'itinerary':'receipts');let f=document.getElementById(types[type]);for(let [k,v] of Object.entries(x)){if(f.elements[k]&&f.elements[k].type!=='file')f.elements[k].value=v??''}if(type==='guests'){document.getElementById('guestPhotos').innerHTML=[['front','Mặt trước'],['back','Mặt sau']].filter(([k])=>x[k]).map(([k,label])=>`<div><small>${label}</small><br><img src="${x[k]}" alt="${label}"></div>`).join('')}window.scrollTo(0,0)}
+function deleteItem(type,itemId){if(!confirm('Bạn có chắc muốn xóa mục này?'))return;db[type]=db[type].filter(x=>x.id!==itemId);save();toast('Đã xóa')}
+function printSummary(){let title=document.getElementById('summaryTitle')?.value||'LỊCH TRÌNH ĐIỀU HÀNH TOUR';document.getElementById('printSubtitle').textContent=title+' · '+new Date().toLocaleDateString('vi-VN');renderSummary();window.print()}
+function printReceipt(rid){let r=db.receipts.find(x=>x.id===rid);if(!r)return;let g=db.guests.find(x=>x.id===r.guestId);let t=db.tours.find(x=>x.id===r.tourId);let w=window.open('','_blank');if(!w){alert('Trình duyệt chặn cửa sổ in. Hãy cho phép mở cửa sổ mới.');return}w.document.write(`<!DOCTYPE html><html lang="vi"><meta charset="UTF-8"><title>Phiếu thu</title><style>body{font:16px Arial;max-width:760px;margin:40px auto;line-height:1.8;color:#173354}h1,h2{text-align:center}hr{margin:25px 0}.sign{display:flex;justify-content:space-around;margin-top:60px}@media print{button{display:none}}</style><h1>PHÁT ĐẠT TRAVEL</h1><h2>PHIẾU THU</h2><p><b>Số phiếu:</b> ${esc(r.number||'—')}<br><b>Ngày thu:</b> ${esc(r.date||'—')}<br><b>Khách hàng:</b> ${esc(g?.name||'—')}<br><b>Chuyến tour:</b> ${esc(t?.name||'—')}<br><b>Số tiền:</b> ${money(r.amount)} VNĐ<br><b>Bằng chữ:</b> ${esc(numberWords(r.amount))} đồng<br><b>Hình thức:</b> ${esc(r.method||'Tiền mặt')}<br><b>Nội dung:</b> ${esc(r.notes||'Thanh toán dịch vụ tour')}</p><hr><p>Xin cảm ơn quý khách đã sử dụng dịch vụ của PHÁT ĐẠT TRAVEL.</p><div class="sign"><div>Người nộp tiền</div><div>Người thu tiền</div></div><p style="text-align:center;margin-top:60px">© 2026 PHÁT ĐẠT TRAVEL</p><script>window.onload=()=>window.print()<\/script></html>`);w.document.close()}
+function numberWords(n){return money(n)}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='phat-dat-travel-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url)}
+function importData(e){let file=e.target.files[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{let data=JSON.parse(r.result);if(!data||!Array.isArray(data.tours)||!Array.isArray(data.guests))throw Error();if(!confirm('Khôi phục sẽ thay thế dữ liệu hiện tại. Bạn đã sao lưu dữ liệu cũ chưa?'))return;db={...emptyData(),...data};save();toast('Đã khôi phục dữ liệu')}catch(err){alert('Tệp JSON không hợp lệ hoặc không đúng định dạng sao lưu')}e.target.value=''};r.readAsText(file)}
+function clearAll(){if(!confirm('XÓA TOÀN BỘ tour, khách, xe, phòng, nhà hàng, lịch trình và phiếu thu trên thiết bị này? Hãy sao lưu trước.'))return;if(!confirm('Xác nhận lần cuối: không thể hoàn tác nếu chưa sao lưu.'))return;db=emptyData();save();toast('Đã xóa dữ liệu')}
 renderAll();
 </script>
 </body>
