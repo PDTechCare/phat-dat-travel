@@ -1,46 +1,397 @@
-PĐ
-PHÁT ĐẠT TRAVEL
-TOUR OPERATIONS · INTERNAL MANAGEMENT
-Xuất dữ liệu
-Nhập dữ liệu
-Lưu ý: Phiên bản này lưu dữ liệu trên trình duyệt của thiết bị đang sử dụng. Để nhiều nhân viên cùng xem và cập nhật trên nhiều máy, cần kết nối cơ sở dữ liệu trực tuyến như Firebase.
-TỔNG CHUYẾN TOUR
-0
-TỔNG KHÁCH ĐÃ GHI DANH
-0
-CHUYẾN SẮP KHỞI HÀNH
-0
-TỔNG TIỀN CỌC (VNĐ)
-0
-＋ Tạo chuyến tour
-Tên chuyến tour *
-Ngày khởi hành *
-Ngày kết thúc
-Điểm đến / lịch trình
-Địa chỉ tập trung / điểm đón
-Số khách dự kiến
-Trưởng đoàn / hướng dẫn viên
-Số điện thoại liên hệ
-Giá tour mỗi khách (VNĐ)
-Trạng thái
-Đang chuẩn bịĐã xác nhậnĐang diễn raHoàn thànhĐã hủy
-Ghi chú nội bộ
-Lưu chuyến tour
-Làm mới
 
-＋ Thêm khách tham gia
-Chọn chuyến tour *
-Họ và tên *
-Số điện thoại
-Địa chỉ khách / địa chỉ đón
-Số người đi cùng
-Tiền đã cọc (VNĐ)
-Ghi chú
-Lưu thông tin khách
-Làm mới
-Danh sách tour
-Danh sách khách
-Sao lưu
-Danh sách chuyến tour
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b50">
+<title>PHÁT ĐẠT TRAVEL | Điều hành tour</title>
+<style>
+:root{--navy:#102b50;--blue:#1769d2;--bg:#f2f6fc;--line:#dce5f0;--muted:#66758a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172b45}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{background:linear-gradient(130deg,#102b50,#176bc3);color:white;padding:25px 17px 20px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:56px;height:56px;border:2px solid #b8d9ff;border-radius:17px;display:grid;place-items:center;font-size:21px;font-weight:900}
+h1{font-size:21px;margin:0 0 5px}
+.subtitle{font-size:11px;letter-spacing:1.4px;opacity:.85}
+.topbuttons{display:flex;gap:9px;margin-top:20px}
+.topbuttons button{flex:1;background:#ffffff20;border:1px solid #ffffff60;color:white;border-radius:12px;padding:12px 5px;font-weight:700}
+main{max-width:1000px;margin:auto;padding:16px}
+.notice{background:#fff8df;border:1px solid #f1dfa0;padding:13px;border-radius:13px;color:#725a22;font-size:13px;line-height:1.6;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:17px}
+.stat,.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:16px}
+.stat span{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
+.stat strong{font-size:27px}
+.panel{margin-bottom:16px}
+h2{font-size:18px;margin:0 0 16px}
+h3{font-size:15px;margin:18px 0 10px}
+label{display:block;font-size:13px;font-weight:700;color:#46566d;margin-bottom:6px}
+input,select,textarea{display:block;width:100%;padding:12px;border:1px solid #cdd8e6;border-radius:10px;background:white;color:#172b45;min-height:45px;outline-color:var(--blue)}
+textarea{min-height:80px;resize:vertical}
+.field{margin-bottom:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{border:0;border-radius:10px;padding:12px 14px;font-weight:700;background:var(--blue);color:white}
+.btn.secondary{background:#eaf2fc;color:#1758a7}
+.btn.danger{background:#fff0f0;color:#b42318}
+.btn.dark{background:var(--navy)}
+.btn.small{padding:8px 10px;font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.search{margin-bottom:12px}
+.tour{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:11px;background:#fff}
+.tour-head{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.tour-title{font-size:16px;font-weight:800;overflow-wrap:anywhere}
+.badge{font-size:11px;padding:6px 8px;border-radius:20px;background:#eaf2ff;color:#1758a7;white-space:nowrap}
+.details{font-size:13px;color:#52627a;line-height:1.8;margin-top:10px;overflow-wrap:anywhere}
+.details b{color:#233952}
+.empty{text-align:center;color:var(--muted);padding:24px 8px;font-size:14px}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.hidden{display:none!important}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
+@media(min-width:700px){main{padding:24px}.stats{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}.tour-head{flex-direction:column}.badge{white-space:normal}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">PĐ</div>
+    <div>
+      <h1>PHÁT ĐẠT TRAVEL</h1>
+      <div class="subtitle">TOUR OPERATIONS · INTERNAL MANAGEMENT</div>
+    </div>
+  </div>
+  <div class="topbuttons">
+    <button onclick="exportData()">↓ Xuất dữ liệu</button>
+    <button onclick="document.getElementById('importFile').click()">↑ Nhập dữ liệu</button>
+    <input id="importFile" type="file" accept=".json,application/json" class="hidden" onchange="importData(event)">
+  </div>
+</header>
 
-PHÁT ĐẠT TRAVEL © 2026 · HỆ THỐNG QUẢN LÝ TOUR NỘI BỘ
+<main>
+  <div class="notice">
+    <b>📌 Lưu ý:</b> Dữ liệu được lưu trên trình duyệt của thiết bị này. Hãy thường xuyên xuất file sao lưu. Muốn nhiều nhân viên dùng chung dữ liệu trên nhiều thiết bị, cần bổ sung cơ sở dữ liệu trực tuyến và đăng nhập.
+  </div>
+
+  <section class="stats">
+    <div class="stat"><span>TỔNG CHUYẾN TOUR</span><strong id="totalTours">0</strong></div>
+    <div class="stat"><span>TỔNG KHÁCH ĐĂNG KÝ</span><strong id="totalPeople">0</strong></div>
+    <div class="stat"><span>CHUYẾN SẮP KHỞI HÀNH</span><strong id="upcoming">0</strong></div>
+    <div class="stat"><span>TỔNG TIỀN CỌC (VNĐ)</span><strong id="totalDeposit">0</strong></div>
+  </section>
+
+  <section class="panel" id="tourFormPanel">
+    <h2 id="tourFormTitle">＋ Tạo chuyến tour</h2>
+    <form id="tourForm">
+      <input type="hidden" id="tourId">
+      <div class="field">
+        <label for="tourName">Tên chuyến tour *</label>
+        <input id="tourName" required maxlength="150" placeholder="VD: Hà Tiên – Phú Quốc 3N3Đ">
+      </div>
+      <div class="grid">
+        <div class="field"><label for="startDate">Ngày khởi hành *</label><input type="date" id="startDate" required></div>
+        <div class="field"><label for="endDate">Ngày kết thúc</label><input type="date" id="endDate"></div>
+      </div>
+      <div class="field"><label for="destination">Điểm đến / lịch trình</label><textarea id="destination" placeholder="Ngày 1: ...&#10;Ngày 2: ..."></textarea></div>
+      <div class="field"><label for="meeting">Địa chỉ tập trung / điểm đón</label><input id="meeting" placeholder="Địa chỉ, điểm hẹn, link bản đồ"></div>
+      <div class="grid">
+        <div class="field"><label for="expected">Số khách dự kiến</label><input id="expected" type="number" min="0" value="0"></div>
+        <div class="field"><label for="leader">Trưởng đoàn / hướng dẫn viên</label><input id="leader" placeholder="Họ tên trưởng đoàn"></div>
+      </div>
+      <div class="grid">
+        <div class="field"><label for="leaderPhone">Số điện thoại liên hệ</label><input id="leaderPhone" type="tel"></div>
+        <div class="field"><label for="price">Giá tour mỗi khách (VNĐ)</label><input id="price" type="number" min="0" value="0"></div>
+      </div>
+      <div class="field">
+        <label for="status">Trạng thái chuyến</label>
+        <select id="status">
+          <option>Đang chuẩn bị</option>
+          <option>Đã xác nhận</option>
+          <option>Đang diễn ra</option>
+          <option>Hoàn thành</option>
+          <option>Đã hủy</option>
+        </select>
+      </div>
+      <div class="field"><label for="tourNotes">Ghi chú nội bộ</label><textarea id="tourNotes" placeholder="Khách sạn, xe, vé tàu, ăn uống, chi phí..."></textarea></div>
+      <div class="actions">
+        <button class="btn" type="submit" id="saveTourBtn">Lưu chuyến tour</button>
+        <button class="btn secondary" type="button" onclick="resetTourForm()">Làm mới</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>🧭 Danh sách chuyến tour</h2>
+    <input class="search" id="tourSearch" placeholder="🔍 Tìm tên tour, điểm đến..." oninput="renderTours()">
+    <div id="tourList"></div>
+  </section>
+
+  <section class="panel" id="guestPanel">
+    <h2 id="guestFormTitle">＋ Thêm khách tham gia</h2>
+    <form id="guestForm">
+      <input type="hidden" id="guestId">
+      <div class="field"><label for="guestTour">Chọn chuyến tour *</label><select id="guestTour" required><option value="">-- Chọn chuyến tour --</option></select></div>
+      <div class="grid">
+        <div class="field"><label for="guestName">Họ và tên *</label><input id="guestName" required maxlength="120" placeholder="Họ tên khách"></div>
+        <div class="field"><label for="guestPhone">Số điện thoại</label><input id="guestPhone" type="tel" placeholder="Số liên hệ"></div>
+      </div>
+      <div class="field"><label for="guestAddress">Địa chỉ khách / địa chỉ đón</label><textarea id="guestAddress" placeholder="Địa chỉ cụ thể hoặc điểm đón"></textarea></div>
+      <div class="grid">
+        <div class="field"><label for="companions">Số người đi cùng</label><input id="companions" type="number" min="0" value="0"></div>
+        <div class="field"><label for="deposit">Tiền đã cọc (VNĐ)</label><input id="deposit" type="number" min="0" value="0"></div>
+      </div>
+      <div class="field"><label for="guestNotes">Ghi chú</label><textarea id="guestNotes" placeholder="Phòng ở, ăn uống, điểm đón..."></textarea></div>
+      <div class="actions">
+        <button class="btn" type="submit" id="saveGuestBtn">Lưu khách</button>
+        <button class="btn secondary" type="button" onclick="resetGuestForm()">Làm mới</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>👥 Danh sách khách tham gia</h2>
+    <input class="search" id="guestSearch" placeholder="🔍 Tìm tên, số điện thoại, địa chỉ..." oninput="renderGuests()">
+    <div class="field"><label for="guestFilter">Lọc theo chuyến tour</label><select id="guestFilter" onchange="renderGuests()"><option value="">Tất cả chuyến tour</option></select></div>
+    <div id="guestList"></div>
+  </section>
+
+  <footer>PHÁT ĐẠT TRAVEL · HỆ THỐNG ĐIỀU HÀNH NỘI BỘ</footer>
+</main>
+
+<script>
+"use strict";
+const DB_KEY = "phat_dat_travel_data_v1";
+let tours = [];
+let guests = [];
+
+function safeLoad(){
+  try {
+    const raw = localStorage.getItem(DB_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      tours = Array.isArray(data.tours) ? data.tours : [];
+      guests = Array.isArray(data.guests) ? data.guests : [];
+    }
+  } catch(e) {
+    alert("Không đọc được dữ liệu đã lưu. Hãy thử nhập file sao lưu JSON.");
+  }
+}
+function saveDB(){
+  try {
+    localStorage.setItem(DB_KEY, JSON.stringify({tours,guests}));
+    renderAll();
+  } catch(e) {
+    alert("Không thể lưu dữ liệu trên trình duyệt. Hãy xuất dữ liệu sao lưu và kiểm tra dung lượng.");
+  }
+}
+function id(){
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+}
+function val(name){return document.getElementById(name).value.trim();}
+function num(name){return Math.max(0,Number(document.getElementById(name).value)||0);}
+function money(n){return new Intl.NumberFormat("vi-VN").format(n||0);}
+function esc(s){
+  return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function dateText(s){
+  if(!s)return "Chưa đặt";
+  const p=s.split("-");
+  return p.length===3 ? p[2]+"/"+p[1]+"/"+p[0] : s;
+}
+function tourName(tourId){
+  const t=tours.find(x=>x.id===tourId);
+  return t ? t.name : "Tour đã bị xóa";
+}
+function peopleFor(tourId){
+  return guests.filter(g=>g.tourId===tourId).reduce((s,g)=>s+1+(Number(g.companions)||0),0);
+}
+function resetTourForm(){
+  document.getElementById("tourForm").reset();
+  document.getElementById("tourId").value="";
+  document.getElementById("expected").value=0;
+  document.getElementById("price").value=0;
+  document.getElementById("status").value="Đang chuẩn bị";
+  document.getElementById("tourFormTitle").textContent="＋ Tạo chuyến tour";
+  document.getElementById("saveTourBtn").textContent="Lưu chuyến tour";
+}
+document.getElementById("tourForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const existingId=val("tourId");
+  const start=val("startDate"),end=val("endDate");
+  if(end && start && end<start){alert("Ngày kết thúc không được trước ngày khởi hành.");return;}
+  const data={
+    id:existingId||id(),name:val("tourName"),startDate:start,endDate:end,
+    destination:val("destination"),meeting:val("meeting"),expected:num("expected"),
+    leader:val("leader"),leaderPhone:val("leaderPhone"),price:num("price"),
+    status:val("status"),notes:val("tourNotes")
+  };
+  const index=tours.findIndex(t=>t.id===existingId);
+  if(index>=0)tours[index]=data;else tours.unshift(data);
+  saveDB();resetTourForm();
+  alert("Đã lưu thông tin chuyến tour trên thiết bị này.");
+});
+function editTour(id){
+  const t=tours.find(x=>x.id===id);if(!t)return;
+  document.getElementById("tourId").value=t.id;
+  ["tourName:name","startDate:startDate","endDate:endDate","destination:destination","meeting:meeting","expected:expected","leader:leader","leaderPhone:leaderPhone","price:price","status:status","tourNotes:notes"].forEach(pair=>{
+    const [field,key]=pair.split(":");
+    document.getElementById(field).value=t[key]??"";
+  });
+  document.getElementById("tourFormTitle").textContent="✏️ Sửa chuyến tour";
+  document.getElementById("saveTourBtn").textContent="Cập nhật chuyến";
+  document.getElementById("tourFormPanel").scrollIntoView({behavior:"smooth"});
+}
+function deleteTour(id){
+  const t=tours.find(x=>x.id===id);if(!t)return;
+  if(!confirm("Xóa chuyến '"+t.name+"'? Khách của chuyến này cũng sẽ bị xóa."))return;
+  tours=tours.filter(x=>x.id!==id);
+  guests=guests.filter(g=>g.tourId!==id);
+  saveDB();
+}
+function renderTours(){
+  const q=val("tourSearch").toLowerCase();
+  const list=document.getElementById("tourList");
+  const filtered=tours.filter(t=>(t.name+" "+t.destination+" "+t.meeting+" "+t.leader).toLowerCase().includes(q));
+  if(!filtered.length){list.innerHTML='<div class="empty">Chưa có chuyến tour phù hợp. Hãy tạo chuyến đầu tiên ở biểu mẫu phía trên.</div>';return;}
+  list.innerHTML=filtered.map(t=>`
+  <article class="tour">
+    <div class="tour-head"><div class="tour-title">${esc(t.name)}</div><span class="badge">${esc(t.status)}</span></div>
+    <div class="details">
+      📅 <b>Khởi hành:</b> ${esc(dateText(t.startDate))} · <b>Kết thúc:</b> ${esc(dateText(t.endDate))}<br>
+      📍 <b>Điểm đến:</b> ${esc(t.destination||"Chưa cập nhật")}<br>
+      🚐 <b>Điểm đón:</b> ${esc(t.meeting||"Chưa cập nhật")}<br>
+      👥 <b>Khách dự kiến:</b> ${money(t.expected)} · <b>Đã đăng ký:</b> ${money(peopleFor(t.id))}<br>
+      🧑‍✈️ <b>Trưởng đoàn:</b> ${esc(t.leader||"Chưa phân công")}<br>
+      ☎️ <b>Liên hệ:</b> ${esc(t.leaderPhone||"Chưa cập nhật")}<br>
+      💵 <b>Giá mỗi khách:</b> ${money(t.price)} VNĐ<br>
+      📝 <b>Ghi chú:</b> ${esc(t.notes||"Không có")}
+    </div>
+    <div class="actions">
+      <button class="btn small" onclick="editTour('${t.id}')">Sửa tour</button>
+      <button class="btn secondary small" onclick="addGuestTo('${t.id}')">＋ Thêm khách</button>
+      <button class="btn danger small" onclick="deleteTour('${t.id}')">Xóa</button>
+    </div>
+  </article>`).join("");
+}
+function resetGuestForm(){
+  document.getElementById("guestForm").reset();
+  document.getElementById("guestId").value="";
+  document.getElementById("companions").value=0;
+  document.getElementById("deposit").value=0;
+  document.getElementById("guestFormTitle").textContent="＋ Thêm khách tham gia";
+  document.getElementById("saveGuestBtn").textContent="Lưu khách";
+}
+function addGuestTo(tourId){
+  document.getElementById("guestTour").value=tourId;
+  resetGuestForm();
+  document.getElementById("guestTour").value=tourId;
+  document.getElementById("guestPanel").scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("guestForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!tours.some(t=>t.id===val("guestTour"))){alert("Vui lòng tạo hoặc chọn chuyến tour trước.");return;}
+  const existingId=val("guestId");
+  const g={
+    id:existingId||id(),tourId:val("guestTour"),name:val("guestName"),
+    phone:val("guestPhone"),address:val("guestAddress"),
+    companions:num("companions"),deposit:num("deposit"),notes:val("guestNotes")
+  };
+  const index=guests.findIndex(x=>x.id===existingId);
+  if(index>=0)guests[index]=g;else guests.unshift(g);
+  saveDB();resetGuestForm();
+  alert("Đã lưu thông tin khách.");
+});
+function editGuest(id){
+  const g=guests.find(x=>x.id===id);if(!g)return;
+  document.getElementById("guestId").value=g.id;
+  document.getElementById("guestTour").value=g.tourId;
+  document.getElementById("guestName").value=g.name||"";
+  document.getElementById("guestPhone").value=g.phone||"";
+  document.getElementById("guestAddress").value=g.address||"";
+  document.getElementById("companions").value=g.companions||0;
+  document.getElementById("deposit").value=g.deposit||0;
+  document.getElementById("guestNotes").value=g.notes||"";
+  document.getElementById("guestFormTitle").textContent="✏️ Sửa thông tin khách";
+  document.getElementById("saveGuestBtn").textContent="Cập nhật khách";
+  document.getElementById("guestPanel").scrollIntoView({behavior:"smooth"});
+}
+function deleteGuest(id){
+  if(!confirm("Bạn có chắc muốn xóa khách này?"))return;
+  guests=guests.filter(g=>g.id!==id);saveDB();
+}
+function renderGuests(){
+  const q=val("guestSearch").toLowerCase();
+  const filter=val("guestFilter");
+  const list=guests.filter(g=>(!filter||g.tourId===filter)&&
+    (g.name+" "+g.phone+" "+g.address+" "+g.notes+" "+tourName(g.tourId)).toLowerCase().includes(q));
+  const el=document.getElementById("guestList");
+  if(!list.length){el.innerHTML='<div class="empty">Chưa có khách trong danh sách này.</div>';return;}
+  el.innerHTML=list.map(g=>`
+    <article class="tour">
+      <div class="tour-head"><div class="tour-title">${esc(g.name)}</div><span class="badge">${esc(tourName(g.tourId))}</span></div>
+      <div class="details">
+        ☎️ <b>Điện thoại:</b> ${esc(g.phone||"Chưa cung cấp")}<br>
+        📍 <b>Địa chỉ / điểm đón:</b> ${esc(g.address||"Chưa cung cấp")}<br>
+        👥 <b>Số người đi cùng:</b> ${money(g.companions)} · <b>Tổng số người:</b> ${1+(Number(g.companions)||0)}<br>
+        💰 <b>Tiền cọc:</b> ${money(g.deposit)} VNĐ<br>
+        📝 <b>Ghi chú:</b> ${esc(g.notes||"Không có")}
+      </div>
+      <div class="actions">
+        <button class="btn small" onclick="editGuest('${g.id}')">Sửa khách</button>
+        <button class="btn danger small" onclick="deleteGuest('${g.id}')">Xóa khách</button>
+      </div>
+    </article>`).join("");
+}
+function renderSelects(){
+  const options=tours.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join("");
+  const guestTour=document.getElementById("guestTour");
+  const guestFilter=document.getElementById("guestFilter");
+  const oldTour=guestTour.value,oldFilter=guestFilter.value;
+  guestTour.innerHTML='<option value="">-- Chọn chuyến tour --</option>'+options;
+  guestFilter.innerHTML='<option value="">Tất cả chuyến tour</option>'+options;
+  if(tours.some(t=>t.id===oldTour))guestTour.value=oldTour;
+  if(tours.some(t=>t.id===oldFilter))guestFilter.value=oldFilter;
+}
+function renderStats(){
+  document.getElementById("totalTours").textContent=tours.length;
+  document.getElementById("totalPeople").textContent=guests.reduce((s,g)=>s+1+(Number(g.companions)||0),0);
+  const today=new Date();today.setHours(0,0,0,0);
+  document.getElementById("upcoming").textContent=tours.filter(t=>{
+    if(!t.startDate||t.status==="Đã hủy"||t.status==="Hoàn thành")return false;
+    return new Date(t.startDate+"T00:00:00")>=today;
+  }).length;
+  document.getElementById("totalDeposit").textContent=money(guests.reduce((s,g)=>s+(Number(g.deposit)||0),0));
+}
+function renderAll(){renderSelects();renderStats();renderTours();renderGuests();}
+function exportData(){
+  const data={app:"PHÁT ĐẠT TRAVEL",version:1,exportedAt:new Date().toISOString(),tours,guests};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="phat-dat-travel-sao-luu.json";
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function importData(event){
+  const file=event.target.files&&event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!Array.isArray(data.tours)||!Array.isArray(data.guests))throw new Error("invalid");
+      if(!confirm("Nhập dữ liệu sẽ thay thế dữ liệu hiện tại trên thiết bị này. Bạn nên xuất file sao lưu trước. Tiếp tục?"))return;
+      tours=data.tours;guests=data.guests;saveDB();
+      alert("Đã nhập dữ liệu thành công.");
+    }catch(e){alert("File không hợp lệ. Hãy chọn file JSON đã xuất từ website này.");}
+    finally{event.target.value="";}
+  };
+  reader.onerror=()=>{alert("Không đọc được file.");event.target.value="";};
+  reader.readAsText(file);
+}
+safeLoad();
+renderAll();
+</script>
+</body>
+</html>
